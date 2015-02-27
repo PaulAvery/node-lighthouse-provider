@@ -46,7 +46,8 @@ Lighthouse.prototype._transform = function(chunk, enc, callback) {
 				try {
 					var res = yield handler(data, identifier[0] === ':');
 					if(typeof res === 'object') {
-						result.push(res);
+						if(!Array.isArray(res)) res = [res];
+						result.push.apply(result, res);
 
 						//if iterations dont match, do nothing, because we had input in between
 						if(iteration === self.iteration) self.output(result);

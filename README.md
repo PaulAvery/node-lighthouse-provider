@@ -59,6 +59,8 @@ The `icon` property may be omitted, but `title` and `action` are required. `ligh
 
 If you return anything but an object, your handler will not be output.
 
+An array may be returned for multiple new entries.
+
 
 lighthouse-provider-common
 --------------------------
