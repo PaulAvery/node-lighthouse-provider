@@ -26,7 +26,10 @@ Lighthouse.prototype._transform = function(chunk, enc, callback) {
 
 	//Reset output and exit if we have no input
 	self.output([]);
-	if(data.length === 0) return;
+	if(data.length === 0) {
+		callback();
+		return;
+	}
 
 	if(identifier[0] === ':') {
 		//We have an identifier ':something' so we need to get the correct handlers and data
