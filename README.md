@@ -1,6 +1,6 @@
 lighthouse-provider
 ===================
-[![Build Status](https://img.shields.io/travis/paulavery/node-lighthouse-provider.svg?style=flat)](https://travis-ci.org/paulavery/node-lighthouse-provider)
+[![Build Status](https://img.shields.io/travis/PaulAvery/node-lighthouse-provider.svg?style=flat)](https://travis-ci.org/paulavery/node-lighthouse-provider)
 
 This module provides a way to easily define providers for menu entries to the [lighthouse](https://github.com/emgram769/lighthouse) launcher. It depends on generators, so run node with the `--harmony` flag (or use io.js).
 
