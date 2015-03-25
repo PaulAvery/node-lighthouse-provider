@@ -62,7 +62,7 @@ Lighthouse.prototype._transform = function(chunk, enc, callback) {
 			};
 		});
 	}).then(undefined, function(err) {
-		callback(err);
+		console.error(err.stack);
 	});
 
 	//Call the callback immediately, so we keep retrieving new input
