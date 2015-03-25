@@ -13,6 +13,11 @@ function Lighthouse() {
 	this.handlers = {};
 }
 
+Lighthouse.prototype._flush = function(callback) {
+	this.closed = true;
+	callback();
+};
+
 Lighthouse.prototype._transform = function(chunk, enc, callback) {
 	var self = this;
 	var handlers = [];
@@ -46,20 +51,18 @@ Lighthouse.prototype._transform = function(chunk, enc, callback) {
 		//Run over each handler and add to results array once done
 		yield handlers.map(function(handler) {
 			return function *() {
-				try {
-					var res = yield handler(data, identifier[0] === ':');
-					if(typeof res === 'object') {
-						if(!Array.isArray(res)) res = [res];
-						result.push.apply(result, res);
+				var res = yield handler(data, identifier[0] === ':');
+				if(typeof res === 'object') {
+					if(!Array.isArray(res)) res = [res];
+					result.push.apply(result, res);
 
-						//if iterations dont match, do nothing, because we had input in between
-						if(iteration === self.iteration) self.output(result);
-					}
-				} catch(e) {
-					console.error(e.stack);
+					//if iterations dont match, do nothing, because we had input in between
+					if(iteration === self.iteration) self.output(result);
 				}
 			};
 		});
+	}).then(undefined, function(err) {
+		callback(err);
 	});
 
 	//Call the callback immediately, so we keep retrieving new input
@@ -67,10 +70,12 @@ Lighthouse.prototype._transform = function(chunk, enc, callback) {
 };
 
 Lighthouse.prototype.output = function(data) {
+	if(this.closed) return;
+
 	this.push(data.map(function encode(entry) {
 		var e = Lighthouse.escape;
 		
-		var icon = entry.icon ? ('%I' + e(entry.icon + '%')) : '';
+		var icon = entry.icon ? ('%I' + e(entry.icon) + '%') : '';
 		var title = e(entry.title);
 		var action = e(entry.action);
 
@@ -89,7 +94,7 @@ Lighthouse.prototype.attach = function(name, handler) {
 };
 
 Lighthouse.escape = function(str) {
-	return str.replace(/[\|&;<>\(\)\{}\\]/g, '\\$&');
+	return str.replace(/[\%\|&;<>\(\)\{}\\]/g, '\\$&');
 };
 
 module.exports = Lighthouse;
