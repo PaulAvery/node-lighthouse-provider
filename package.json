@@ -2,6 +2,7 @@
   "name": "lighthouse-provider",
   "version": "1.1.1",
   "main": "index.js",
+  "description": "Provide the lighthouse launcher with commands in an easy fashion.",
   "repository": {
     "type": "git",
     "url": "https://github.com/paulavery/node-lighthouse-provider.git"
@@ -10,19 +11,21 @@
     "jshint": "^2.5.6",
     "jshint-stylish": "^1.0.0",
     "mocha": "^1.21.4",
-    "must": "^0.12.0"
+    "must": "^0.12.0",
+    "sinon": "^1.14.1",
+    "sinon-as-promised": "^2.0.3"
   },
   "scripts": {
     "test": "mocha --harmony --require must && jshint . --exclude-path .gitignore --reporter node_modules/jshint-stylish/stylish.js"
   },
   "author": "Florian Albertz",
   "license": "BSD-3-Clause",
+  "dependencies": {
+    "co": "^4.4.0"
+  },
   "jshintConfig": {
     "node": true,
     "mocha": true,
     "esnext": true
-  },
-  "dependencies": {
-    "co": "^4.4.0"
   }
 }
