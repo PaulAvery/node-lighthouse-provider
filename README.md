@@ -40,7 +40,7 @@ This function allows you to provide a generator function for asynchronous data r
 #### Identifier
 The identifier parameter is optional and may be used, to filter for specific handlers.
 
-So if your input to lighthouse looks like `:someId actual input`, only the handlers with the identifier `someId` will be called. If no identifier is provided, it is set to `:`.
+So if your input to lighthouse looks like `:someId actual input`, only the handlers with the identifier `someId` will be called. You may use `::` as an identifier to filter out only those handlers without an identifier.
 
 #### Handler Function
 The handler function will be called with whatever the user types into lighthouse (minus the identifier). It should return a [co](https://github.com/tj/co) yieldable (so you may use a generator function here).
