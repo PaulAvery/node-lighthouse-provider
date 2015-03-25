@@ -43,7 +43,7 @@ The identifier parameter is optional and may be used, to filter for specific han
 So if your input to lighthouse looks like `:someId actual input`, only the handlers with the identifier `someId` will be called. If no identifier is provided, it is set to `:`.
 
 #### Handler Function
-The handler function will be called with whatever the user types into lighthouse (minus the identifier).
+The handler function will be called with whatever the user types into lighthouse (minus the identifier). It should return a [co](https://github.com/tj/co) yieldable (so you may use a generator function here).
 As a second argument, it is provided a boolean signifying if the handlers flag was supplied.
 Your function may then do whatever it likes with it, retrieve data from the web, a file system or simply reformat the input etc.
 
